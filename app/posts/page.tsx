@@ -8,22 +8,21 @@ import PostCardSkeleton from "@/components/PostCardSkeleton";
 import { useDebounce } from "@/hooks/useDebounce";
 
 export default function PostsPage() {
-  const [searchInput, setSearchInput] = useState("");
-  const [showSlowWarning, setShowSlowWarning] = useState(false);
-  const debouncedSearch = useDebounce(searchInput, 500);
+  const [searchInput, setSearchInput] = useState(""); //what the user types
+  const [showSlowWarning, setShowSlowWarning] = useState(false); //if show slow connection warning
+  const debouncedSearch = useDebounce(searchInput, 500); //input value debounced by 500ms of inactivity
 
-  // Convert to number or undefined
-  const userId = debouncedSearch ? Number(debouncedSearch) : undefined;
-  const { posts, loading, error, isValidating } = usePosts(userId, () => {
+  const userId = debouncedSearch ? Number(debouncedSearch) : undefined; //if input exists, convert to number, if not, undefined and show all posts
+  const { posts, loading, error, isValidating } = usePosts(userId, () => { //using usePosts hook to fetch posts
     setShowSlowWarning(true);
   });
 
-  // Clear warning when loading completes (moved to a separate check)
-  if (!loading && !isValidating && showSlowWarning) {
+  if (!loading && !isValidating && showSlowWarning) { //hide slow connection warning when loading is done
     setShowSlowWarning(false);
   }
 
   return (
+    //main container
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between mb-6">
@@ -34,10 +33,10 @@ export default function PostsPage() {
             <span className="relative z-20">← Home</span>
           </Link>
           <h1 className="text-2xl font-bold text-black">Posts</h1>
-          <div className="w-24"></div> {/* Spacer for centering */}
+          <div className="w-24"></div> 
         </div>
 
-        {/* Slow Connection Warning */}
+        {/* if showSlowWarning is true (after 5s) */}
         {showSlowWarning && (
           <div className="mb-4 mx-auto max-w-2xl p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 rounded">
             <p className="font-semibold">Slow connection detected</p>
@@ -47,7 +46,6 @@ export default function PostsPage() {
           </div>
         )}
 
-        {/* Search Input */}
         <div className="mb-8">
           <div className="max-w-md mx-auto">
             <label
@@ -56,6 +54,7 @@ export default function PostsPage() {
             >
               Filter by User ID
             </label>
+            {/* input for searching by user ID */}
             <input
               id="userId-search"
               type="number"
@@ -71,8 +70,7 @@ export default function PostsPage() {
             )}
           </div>
         </div>
-
-        {/* Loading State */}
+        {/* skeletons while loading */}
         {loading && (
           <div className="flex flex-wrap gap-4 justify-center">
             {Array.from({ length: 9 }).map((_, index) => (
@@ -80,8 +78,7 @@ export default function PostsPage() {
             ))}
           </div>
         )}
-
-        {/* Error State */}
+        {/* banner for error */}
         {error && (
           <div className="max-w-md mx-auto bg-red-50 border border-red-200 rounded-lg p-4 text-center">
             <p className="text-red-800 font-semibold">Error loading posts</p>
@@ -90,8 +87,7 @@ export default function PostsPage() {
             </p>
           </div>
         )}
-
-        {/* Posts Grid */}
+        {/* if not posts found for the id. If found, show postCards */}
         {!loading && !error && (
           <>
             <div className="flex flex-wrap gap-4 justify-center">
