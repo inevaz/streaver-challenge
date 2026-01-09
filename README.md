@@ -1,11 +1,11 @@
 
 ## stack
 
-- **Next.js 15+** with App Router
-- **TypeScript** for type safety
-- **SWR** for data fetching and caching
-- **Tailwind CSS** for styling
-- **react-loading-skeleton** for loading states
+- **Next.js** 
+- **TypeScript** 
+- **SWR**
+- **Tailwind CSS** 
+- **react-loading-skeleton** 
 
 ## setup
 
