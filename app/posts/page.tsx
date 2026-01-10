@@ -50,7 +50,7 @@ export default function PostsPage() {
           <div className="max-w-md mx-auto">
             <label
               htmlFor="userId-search"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm font-medium text-gray-700 mb-2 pl-2"
             >
               Filter by User ID
             </label>
