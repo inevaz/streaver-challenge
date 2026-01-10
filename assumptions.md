@@ -61,6 +61,21 @@ I implemented a simple filter by userId using a custom `useDebounce` hook.
 Debouncing prevents each keystroke from triggering a new request.
 So the user can type normally, and the search only happens after 500ms (0.5 seconds) of inactivity.
 
+## Vercel Analytics
+
+I integrated Vercel Analytics to track user visits and interactions.
+
+- Allows monitoring of page views, user behavior, and performance metrics
+- Installed via `@vercel/analytics` package
+- Added `<Analytics />` component to the root layout
+
+## Real Time Connection Indicator
+
+I implemented a connection quality indicator that shows the actual latency of API requests.
+- Complements the "slow connection" warning (Step 5)
+- Gives users context about why requests are taking time
+- Shows real-time metrics from actual API calls
+
 ## How It Works (Summary)
 
 - The app fetches posts from the API using SWR.

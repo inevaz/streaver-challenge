@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import usePosts from "@/hooks/usePosts";
 import PostCard from "@/components/PostCards";
 import PostCardSkeleton from "@/components/PostCardSkeleton";
 import { useDebounce } from "@/hooks/useDebounce";
+import ConnectionIndicator from "@/components/ConnectionIndicator";
 
 export default function PostsPage() {
   const [searchInput, setSearchInput] = useState(""); //what the user types
@@ -33,7 +35,7 @@ export default function PostsPage() {
             <span className="relative z-20">← Home</span>
           </Link>
           <h1 className="text-2xl font-bold text-black">Posts</h1>
-          <div className="w-24"></div> 
+          <div className="w-24"></div>
         </div>
 
         {/* if showSlowWarning is true (after 5s) */}
@@ -105,6 +107,20 @@ export default function PostsPage() {
             )}
           </>
         )}
+      </div>
+      
+      <div className="fixed bottom-6 left-6 z-50">
+        <ConnectionIndicator />
+      </div>
+      
+      <div className="fixed bottom-6 right-6 z-50">
+        <Image
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkgdYTt96GYdMW78NoeDGNOPLWXvRZcKps6Q&s"
+          alt="Company logo"
+          width={40}
+          height={40}
+          className="rounded-lg"
+        />
       </div>
     </div>
   );

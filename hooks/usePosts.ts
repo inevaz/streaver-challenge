@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import { useLatency } from "@/lib/LatencyContext";
 
 //defining Post type
 export type Post = {
@@ -8,14 +9,27 @@ export type Post = {
   body: string;
 };
 
-//fetcher function to get data from the API
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 //custom hook to fetch posts
 export default function usePosts(
   userId?: number,
   onSlowConnection?: () => void
 ) {
+  const { updateLatency } = useLatency();
+
+  //fetcher function to get data from the API and measure latency
+  const fetcher = async (url: string) => {
+    const startTime = performance.now();
+    const res = await fetch(url);
+    const data = await res.json();
+    const endTime = performance.now();
+    const responseTime = Math.round(endTime - startTime);
+    
+    // Update global latency
+    updateLatency(responseTime);
+    
+    return data;
+  };
+
 //depending on whether userId is provided, set the URL accordingly
   const url = userId
     ? `https://jsonplaceholder.typicode.com/posts?userId=${userId}`

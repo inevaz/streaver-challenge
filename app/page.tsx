@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import ConnectionIndicator from "@/components/ConnectionIndicator"
 
 export default function Home() {
   return (
@@ -23,15 +24,19 @@ export default function Home() {
         </div>
       </div>
       
-      <footer className="py-6 px-6 text-right">
+      <div className="fixed bottom-6 left-6 z-50">
+        <ConnectionIndicator />
+      </div>
+      
+      <div className="fixed bottom-6 right-6 z-50">
         <Image
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkgdYTt96GYdMW78NoeDGNOPLWXvRZcKps6Q&s"
           alt="Company logo"
           width={40}
           height={40}
-          className="rounded-lg ml-auto"
+          className="rounded-lg"
         />
-      </footer>
+      </div>
     </div>
   )
 }
